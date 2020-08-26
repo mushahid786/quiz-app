@@ -11,11 +11,13 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

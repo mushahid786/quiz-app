@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit {
     console.log("Total Registered User", this.registeredUser);
     setTimeout(() => {
       this.isSignUp = false;
-
       this.spinner.hide()
     }, 1000);
 
