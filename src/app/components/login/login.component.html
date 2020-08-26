@@ -1,1 +1,79 @@
-<p>login works!</p>
+<!-- <p>login-panel works!</p> -->
+<nav class="navbar navbar-expand-lg bg-info p-4 navbar-dark">
+
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item navbar-brand">
+            Register For Quiz Questionnaire
+
+        </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">
+                <i class="fa fa-sign-in" aria-hidden="true"></i>
+                Login
+            </a>
+        </li>
+    </ul>
+
+</nav>
+<div class="container col-md-6 mt-4" *ngIf="!isSignUp">
+    <h2>Login</h2>
+    <form class="form-group">
+        <!-- <input type="hidden" name="csrfmiddlewaretoken"
+            value="3wEx7OLGT1CPROgOE9CP8FykNdnhghHOO7FgDXgGbuE4tkGbzbKxSwZA58x9CDr7"> -->
+        <div class="form-group">
+            <label for="id_username">Username:</label>
+            <input type="text" name="username" autofocus="" required="" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" required="" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="password" class="form-control">
+        </div>
+
+        <!-- <div class="form-group">
+            <button class="form-control btn btn-primary" type="submit" (onclick)="login()">Login</button>
+        </div> -->
+    </form>
+    <div class="row py-3">
+        <div class="text-center col-12 col-md-6">
+            <button class="btn btn-success w-100" (click)="login()">Login</button>
+            <p *ngIf="errorMessage!=''" class="text-danger">{{errorMessage}}</p>
+
+        </div>
+        <div class="text-center col-12 col-md-6">
+            <button class="btn btn-info " (click)="createNewAccount()">Create New Account</button>
+            <!-- <p *ngIf="errorMessage!=''" class="text-danger">{{errorMessage}}</p> -->
+        </div>
+    </div>
+</div>
+
+<div class="container col-md-6 mt-4" *ngIf="isSignUp">
+    <h2>Sign Up</h2>
+    <form class="form-group">
+        <!-- <input type="hidden" name="csrfmiddlewaretoken"
+            value="3wEx7OLGT1CPROgOE9CP8FykNdnhghHOO7FgDXgGbuE4tkGbzbKxSwZA58x9CDr7"> -->
+
+        <div class="form-group">
+            <label for="id_username">Name:</label>
+            <input type="text" name="name" autofocus="" required="" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="name" class="form-control" placeholder="User Name">
+        </div>
+        <div class="form-group">
+            <label for="id_username">Email:</label>
+            <input type="email" name="emailid" autofocus="" required="" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="emailid" class="form-control" placeholder="Email Id">
+        </div>
+        <div class="form-group">
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" required="" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="password" class="form-control" placeholder="Password">
+        </div>
+
+        <div class="form-group">
+            <button class="form-control btn btn-primary" (click)="signUp()">Sign Up</button>
+        </div>
+    </form>
+</div>
