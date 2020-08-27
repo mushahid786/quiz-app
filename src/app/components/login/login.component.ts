@@ -23,18 +23,19 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
 
     if (localStorage.getItem("isLogin")) {
-      // this.router.navigate([`/dashboard`])
+      this.router.navigate([`/dashboard`])
     }
   }
 
   login() {
     this.isLogin = true;
-    let storedRegisteredUsers = JSON.parse(localStorage.getItem("registration"));
+    let storedRegisteredUsers = JSON.parse(localStorage.getItem("registeredUser"));
 
     console.log("Registered User", storedRegisteredUsers);
     for (let i = 0; i < storedRegisteredUsers.length; i++) {
-      if (this.username == storedRegisteredUsers[i].username && this.password == storedRegisteredUsers[i].password) {
+      if ((this.username == storedRegisteredUsers[i].username) && (this.password == storedRegisteredUsers[i].password)) {
         localStorage.setItem("isLogin", 'true');
+        localStorage.setItem("username", this.username);
         this.errorMessage = "";
         this.router.navigate([`/dashboard`]);
       } else if (this.username != "" && this.password != "") {
