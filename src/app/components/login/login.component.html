@@ -26,11 +26,14 @@
             <label for="id_username">Username:</label>
             <input type="text" name="username" autofocus="" required="" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="username" class="form-control">
+            <p *ngIf="username=='' && isLogin" class="text-danger">Please enter username</p>
+
         </div>
         <div class="form-group">
             <label for="id_password">Password:</label>
             <input type="password" name="password" required="" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="password" class="form-control">
+            <p *ngIf="password=='' && isLogin" class="text-danger">Please enter password</p>
         </div>
 
         <!-- <div class="form-group">
@@ -40,7 +43,7 @@
     <div class="row py-3">
         <div class="text-center col-12 col-md-6">
             <button class="btn btn-success w-100" (click)="login()">Login</button>
-            <p *ngIf="errorMessage!=''" class="text-danger">{{errorMessage}}</p>
+            <p *ngIf="errorMessage!='' " class="text-danger">{{errorMessage}}</p>
 
         </div>
         <div class="text-center col-12 col-md-6">
@@ -60,20 +63,29 @@
             <label for="id_username">Name:</label>
             <input type="text" name="name" autofocus="" required="" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="name" class="form-control" placeholder="User Name">
+            <p *ngIf="name=='' && isLogin" class="text-danger">Please enter user name</p>
+
         </div>
         <div class="form-group">
             <label for="id_username">Email:</label>
             <input type="email" name="emailid" autofocus="" required="" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="emailid" class="form-control" placeholder="Email Id">
+            <p *ngIf="emailid=='' && isLogin" class="text-danger">Please enter email id</p>
+            <p *ngIf="isLogin && isValidEmail" class="text-danger">Please enter valid email id</p>
+
         </div>
         <div class="form-group">
             <label for="id_password">Password:</label>
             <input type="password" name="password" required="" [ngModelOptions]="{standalone: true}"
                 [(ngModel)]="password" class="form-control" placeholder="Password">
+            <p *ngIf="password=='' && isLogin" class="text-danger">Please enter password</p>
+
         </div>
 
         <div class="form-group">
             <button class="form-control btn btn-primary" (click)="signUp()">Sign Up</button>
+            <p *ngIf="errorMessage!='' " class="text-danger">{{errorMessage}}</p>
+
         </div>
     </form>
 </div>
