@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   isOptionCorrect: boolean = true;
   isOptionDisplay: boolean = false;
   isDisabledCheckBox: boolean = false;
+  resultOfTest = 0;
 
   questionList = [
     {
@@ -81,7 +82,8 @@ export class DashboardComponent implements OnInit {
     for (let i = 0; i < this.questionList.length; i++) {
       this.orderSuffalList.push({ ...this.questionList[i], isOptionCorrect: false, isOptionDisplay: true, isDisabledCheckBox: false });
     }
-
+    this.orderSuffalList.push(this.questionList[0]);
+    this.orderSuffalList.splice(0, 1);
     localStorage.setItem(
       'orderSuffalList',
       JSON.stringify(this.orderSuffalList)
@@ -102,9 +104,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate([`/`]);
   }
   checked(option, answer, i, index) {
+
     this.orderSuffalList[i]['isDisabledCheckBox'] = true;
     console.log('Checked', option, answer);
     if (option == answer) {
+
+      this.resultOfTest = this.resultOfTest + 2;
       this.orderSuffalList[i]['isOptionCorrect'] = true;
       this.orderSuffalList[i]['isOptionDisplay'] = true
 
