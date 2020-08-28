@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
   orderSuffalList = [];
   choiceOptionList = [];
+  questionStoredList = [];
   isOptionCorrect: boolean = true;
   isOptionDisplay: boolean = false;
   isDisabledCheckBox: boolean = false;
@@ -76,21 +77,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     //Suffaling the question in array.
-    if (JSON.parse(localStorage.getItem('orderSuffalList'))) {
-      this.questionList = JSON.parse(localStorage.getItem('orderSuffalList'));
-    }
+    // this.orderSuffalList = this.orderSuffalList[0];
     for (let i = 0; i < this.questionList.length; i++) {
-      this.orderSuffalList.push({ ...this.questionList[i], isOptionCorrect: false, isOptionDisplay: true, isDisabledCheckBox: false });
+      this.questionStoredList.push(this.questionList[i]);
     }
-    this.orderSuffalList.push(this.questionList[0]);
-    this.orderSuffalList.splice(0, 1);
     localStorage.setItem(
-      'orderSuffalList',
-      JSON.stringify(this.orderSuffalList)
+      'questionStoredList',
+      JSON.stringify(this.questionStoredList)
     );
-
-    // localStorage.removeItem("orderSuffalList")
-    // this.orderSuffalList = [];
+    this.getList(0)
 
     //checking the user is loged in or not.
     if (!localStorage.getItem('isLogin') && !localStorage.getItem('username')) {
@@ -98,6 +93,31 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  nextQuestion(index) {
+    console.log("index next", index);
+
+    this.getList(index)
+  }
+  getList(start) {
+
+    if (JSON.parse(localStorage.getItem('orderSuffalList'))) {
+      this.questionStoredList = JSON.parse(localStorage.getItem('orderSuffalList'));
+    }
+    this.questionStoredList = JSON.parse(localStorage.getItem('questionStoredList'))
+    if (start < this.questionStoredList.length) {
+      this.orderSuffalList.push({ ...this.questionStoredList[start], isOptionCorrect: true, isOptionDisplay: false, isDisabledCheckBox: false });
+
+      localStorage.setItem(
+        'orderSuffalList',
+        JSON.stringify(this.orderSuffalList)
+      );
+    } else {
+
+    }
+
+    // localStorage.removeItem("orderSuffalList")
+    // this.orderSuffalList = [];
+  }
   logOut() {
     localStorage.removeItem('isLogin');
     localStorage.removeItem('username');
@@ -105,8 +125,8 @@ export class DashboardComponent implements OnInit {
   }
   checked(option, answer, i, index) {
 
-    this.orderSuffalList[i]['isDisabledCheckBox'] = true;
     console.log('Checked', option, answer);
+    this.orderSuffalList[i]['isDisabledCheckBox'] = true;
     if (option == answer) {
 
       this.resultOfTest = this.resultOfTest + 2;
@@ -119,5 +139,10 @@ export class DashboardComponent implements OnInit {
       this.orderSuffalList[i]['isOptionDisplay'] = false
 
     }
+  }
+  onFinalSubmit() {
+    console.log("Submit suucessfully");
+
+    // this.router.navigate([`/leaderboard`])
   }
 }
