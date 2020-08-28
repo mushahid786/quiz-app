@@ -141,20 +141,21 @@ export class DashboardComponent implements OnInit {
       this.orderSuffalList[i]['isOptionDisplay'] = false;
     }
 
-    // localStorage.setItem('resultOfTest', JSON.stringify(this.resultOfTest)
   }
   onFinalSubmit() {
 
     let candidateDetail = JSON.parse(localStorage.getItem('registeredUser'));
     for (let i = 0; i < candidateDetail.length; i++) {
 
-      let objectOfDetails = {
-        name: candidateDetail[i].name,
-        emailId: candidateDetail[i].username,
-        scoreCard: this.resultOfTest
-      }
+      if (candidateDetail[i].username == localStorage.getItem('username')) {
 
-      this.candiateResults.push(objectOfDetails)
+        let objectOfDetails = {
+          name: candidateDetail[i].name,
+          emailId: candidateDetail[i].username,
+          scoreCard: this.resultOfTest
+        }
+        this.candiateResults.push(objectOfDetails)
+      }
     }
 
     localStorage.setItem('candidateResults', JSON.stringify(this.candiateResults))
@@ -162,7 +163,6 @@ export class DashboardComponent implements OnInit {
 
     this.router.navigate([`/leaderboard`])
   }
-
 
   logOut() {
     localStorage.removeItem('isLogin');
