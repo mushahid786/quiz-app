@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+
+  candiateResults = [];
   orderSuffalList = [];
   choiceOptionList = [];
   questionStoredList = [];
@@ -76,6 +78,11 @@ export class DashboardComponent implements OnInit {
   constructor(public router: Router) { }
 
   ngOnInit(): void {
+
+    //checking the user is loged in or not.
+    if (!localStorage.getItem('isLogin') && !localStorage.getItem('username')) {
+      this.router.navigate([`/`]);
+    }
     //Suffaling the question in array.
     for (let i = 0; i < this.questionList.length; i++) {
       this.questionStoredList.push(this.questionList[i]);
@@ -86,10 +93,7 @@ export class DashboardComponent implements OnInit {
     );
     this.getList(0);
 
-    //checking the user is loged in or not.
-    if (!localStorage.getItem('isLogin') && !localStorage.getItem('username')) {
-      this.router.navigate([`/`]);
-    }
+
   }
 
   nextQuestion(index) {
@@ -124,11 +128,7 @@ export class DashboardComponent implements OnInit {
     // localStorage.removeItem("orderSuffalList")
     // this.orderSuffalList = [];
   }
-  logOut() {
-    localStorage.removeItem('isLogin');
-    localStorage.removeItem('username');
-    this.router.navigate([`/`]);
-  }
+
   checked(option, answer, i, index) {
     console.log('Checked', option, answer);
     this.orderSuffalList[i]['isDisabledCheckBox'] = true;
@@ -140,10 +140,33 @@ export class DashboardComponent implements OnInit {
       this.orderSuffalList[i]['isOptionCorrect'] = false;
       this.orderSuffalList[i]['isOptionDisplay'] = false;
     }
+
+    // localStorage.setItem('resultOfTest', JSON.stringify(this.resultOfTest)
   }
   onFinalSubmit() {
-    console.log('Submit suucessfully');
 
-    // this.router.navigate([`/leaderboard`])
+    let candidateDetail = JSON.parse(localStorage.getItem('registeredUser'));
+    for (let i = 0; i < candidateDetail.length; i++) {
+
+      let objectOfDetails = {
+        name: candidateDetail[i].name,
+        emailId: candidateDetail[i].username,
+        scoreCard: this.resultOfTest
+      }
+
+      this.candiateResults.push(objectOfDetails)
+    }
+
+    localStorage.setItem('candidateResults', JSON.stringify(this.candiateResults))
+    console.log('Submit suucessfully', JSON.parse(localStorage.getItem('candidateResults')));
+
+    this.router.navigate([`/leaderboard`])
+  }
+
+
+  logOut() {
+    localStorage.removeItem('isLogin');
+    // localStorage.removeItem('username');
+    this.router.navigate([`/`]);
   }
 }

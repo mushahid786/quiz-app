@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leaderboard',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeaderboardComponent implements OnInit {
 
-  constructor() { }
+  candidateScoreCard = [];
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
+    //checking the user is loged in or not.
+    if (!localStorage.getItem('isLogin') && !localStorage.getItem('username')) {
+      this.router.navigate([`/`]);
+    }
+    this.candidateScoreCard = JSON.parse(localStorage.getItem('candidateResults'))
+  }
+
+  logOut() {
+    localStorage.removeItem('isLogin');
+    this.router.navigate([`/`])
   }
 
 }
