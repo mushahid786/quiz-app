@@ -77,7 +77,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     //Suffaling the question in array.
-    // this.orderSuffalList = this.orderSuffalList[0];
     for (let i = 0; i < this.questionList.length; i++) {
       this.questionStoredList.push(this.questionList[i]);
     }
@@ -85,7 +84,7 @@ export class DashboardComponent implements OnInit {
       'questionStoredList',
       JSON.stringify(this.questionStoredList)
     );
-    this.getList(0)
+    this.getList(0);
 
     //checking the user is loged in or not.
     if (!localStorage.getItem('isLogin') && !localStorage.getItem('username')) {
@@ -94,25 +93,32 @@ export class DashboardComponent implements OnInit {
   }
 
   nextQuestion(index) {
-    console.log("index next", index);
-
-    this.getList(index)
+    console.log('index next', index);
+    this.getList(index);
   }
-  getList(start) {
 
+  getList(start) {
     if (JSON.parse(localStorage.getItem('orderSuffalList'))) {
-      this.questionStoredList = JSON.parse(localStorage.getItem('orderSuffalList'));
+      this.questionStoredList = JSON.parse(
+        localStorage.getItem('orderSuffalList')
+      );
     }
-    this.questionStoredList = JSON.parse(localStorage.getItem('questionStoredList'))
+    this.questionStoredList = JSON.parse(
+      localStorage.getItem('questionStoredList')
+    );
     if (start < this.questionStoredList.length) {
-      this.orderSuffalList.push({ ...this.questionStoredList[start], isOptionCorrect: true, isOptionDisplay: false, isDisabledCheckBox: false });
+      this.orderSuffalList.push({
+        ...this.questionStoredList[start],
+        isOptionCorrect: true,
+        isOptionDisplay: false,
+        isDisabledCheckBox: false,
+      });
 
       localStorage.setItem(
         'orderSuffalList',
         JSON.stringify(this.orderSuffalList)
       );
     } else {
-
     }
 
     // localStorage.removeItem("orderSuffalList")
@@ -124,24 +130,19 @@ export class DashboardComponent implements OnInit {
     this.router.navigate([`/`]);
   }
   checked(option, answer, i, index) {
-
     console.log('Checked', option, answer);
     this.orderSuffalList[i]['isDisabledCheckBox'] = true;
     if (option == answer) {
-
       this.resultOfTest = this.resultOfTest + 2;
       this.orderSuffalList[i]['isOptionCorrect'] = true;
-      this.orderSuffalList[i]['isOptionDisplay'] = true
-
-
+      this.orderSuffalList[i]['isOptionDisplay'] = true;
     } else {
       this.orderSuffalList[i]['isOptionCorrect'] = false;
-      this.orderSuffalList[i]['isOptionDisplay'] = false
-
+      this.orderSuffalList[i]['isOptionDisplay'] = false;
     }
   }
   onFinalSubmit() {
-    console.log("Submit suucessfully");
+    console.log('Submit suucessfully');
 
     // this.router.navigate([`/leaderboard`])
   }
