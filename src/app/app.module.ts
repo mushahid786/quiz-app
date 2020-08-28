@@ -12,12 +12,14 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LeaderboardComponent } from './components/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
+    LeaderboardComponent,
   ],
   imports: [
     BrowserModule,
