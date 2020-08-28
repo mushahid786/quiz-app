@@ -146,19 +146,24 @@ export class DashboardComponent implements OnInit {
 
     let candidateDetail = JSON.parse(localStorage.getItem('registeredUser'));
     for (let i = 0; i < candidateDetail.length; i++) {
-
+      let objectOfDetails
       if (candidateDetail[i].username == localStorage.getItem('username')) {
+        objectOfDetails = {
 
-        let objectOfDetails = {
           name: candidateDetail[i].name,
           emailId: candidateDetail[i].username,
           scoreCard: this.resultOfTest
         }
-        this.candiateResults.push(objectOfDetails)
+      } else {
+        objectOfDetails = {
+          name: candidateDetail[i].name,
+          emailId: candidateDetail[i].username,
+        }
       }
+      this.candiateResults.push(objectOfDetails)
+      localStorage.setItem('candidateResults', JSON.stringify(this.candiateResults))
     }
 
-    localStorage.setItem('candidateResults', JSON.stringify(this.candiateResults))
     console.log('Submit suucessfully', JSON.parse(localStorage.getItem('candidateResults')));
 
     this.router.navigate([`/leaderboard`])
